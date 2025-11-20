@@ -2,6 +2,9 @@ import { IsOptional, IsIn, IsString, IsNumber, Min } from "class-validator";
 import { Type } from "class-transformer";
 
 export class QueryHistoryDto {
+  @IsString()
+  sensorId: string;
+
   @IsOptional()
   @IsString()
   @IsIn(["1h", "24h", "7d", "30d"])

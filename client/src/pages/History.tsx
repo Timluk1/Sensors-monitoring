@@ -1,6 +1,8 @@
 import { useParams, useNavigate } from "react-router"
 import { useEffect, useState } from "react";
 import { historyService } from "@/modules/History/api/histroy.service";
+import { sensorsService } from "@/modules/Sensors/api/sensors.service";
+import type { Sensor } from "@/modules/Sensors/types/sensors.types";
 
 import { Card, CardHeader, CardDescription, CardTitle, CardAction, CardContent } from "@/shared/components/card";
 import { ToggleGroup, ToggleGroupItem } from "@/shared/components/toggle-group";
@@ -32,6 +34,7 @@ export const History = () => {
 
     const [interval, setInterval] = useState<HistoryInterval>("30d");
     const [data, setData] = useState<HistoryRecord[]>([]);
+    const [sensor, setSensor] = useState<Sensor | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
@@ -40,10 +43,29 @@ export const History = () => {
     }, [id, navigate]);
 
     useEffect(() => {
+        const getSensor = async () => {
+            if (!id) return;
+            try {
+                const sensorData = await sensorsService.getAll();
+                const foundSensor = sensorData.items.find((s: Sensor) => s.id === id);
+                if (foundSensor) setSensor(foundSensor);
+            } catch (error) {
+                console.error('Failed to fetch sensor data:', error);
+            }
+        };
+        getSensor();
+    }, [id]);
+
+    useEffect(() => {
         const getData = async () => {
+            if (!id) return;
+
             try {
                 setLoading(true);
-                const data = await historyService.getAll({ interval });
+                const data = await historyService.getAll({
+                    sensorId: id,
+                    interval
+                });
                 setData(data.items);
             } catch {
                 setError("Failed to fetch history data.");
@@ -53,8 +75,21 @@ export const History = () => {
         }
         
         getData();
-    }, [interval]);
-    
+    }, [id, interval]);
+
+    const getSensorTypeName = (type: Sensor['type']) => {
+        const names = {
+            temperature: "Temperature",
+            humidity: "Humidity",
+            air_quality: "Air Quality",
+            noise: "Noise",
+            movement: "Movement",
+            co2: "CO₂",
+            solar_radiation: "Solar Radiation",
+        };
+        return names[type] || type;
+    };
+
     const getTextByInterval = (interval: HistoryInterval) => {
         switch (interval) {
             case "1h":
@@ -91,7 +126,9 @@ export const History = () => {
             </Button>
             <Card className="@container/card">
                 <CardHeader>
-                    <CardTitle>Total Temperature statistics</CardTitle>
+                    <CardTitle>
+                        {sensor ? `${sensor.name} - ${getSensorTypeName(sensor.type)} Statistics` : "Loading..."}
+                    </CardTitle>
                     <CardDescription>
                         <span className="hidden @[540px]/card:block">
                             Total for {getTextByInterval(interval)}
