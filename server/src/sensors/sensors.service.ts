@@ -60,15 +60,6 @@ const SENSORS: Sensor[] = [
   },
   {
     id: "sensor_7",
-    name: "Garage Movement",
-    type: "movement",
-    status: "offline",
-    currentValue: 0,
-    unit: "",
-    location: "Garage",
-  },
-  {
-    id: "sensor_8",
     name: "Garden Soil Moisture",
     type: "humidity",
     status: "online",
@@ -77,7 +68,7 @@ const SENSORS: Sensor[] = [
     location: "Garden",
   },
   {
-    id: "sensor_9",
+    id: "sensor_8",
     name: "Rooftop Solar Radiation",
     type: "solar_radiation",
     status: "online",
@@ -143,12 +134,5 @@ export class SensorsService {
       interval: query.interval || '24h',
       data: data.reverse(),
     };
-  }
-
-  findLogs(id: string): SensorLog[] {
-    return [
-      { timestamp: "2025-01-11T10:00:00Z", event: "status_up" },
-      { timestamp: "2025-01-10T20:33:00Z", event: "status_down" },
-    ];
   }
 }

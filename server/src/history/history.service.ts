@@ -10,9 +10,8 @@ const SENSORS = [
   { id: "sensor_4", type: "noise" as SensorType },
   { id: "sensor_5", type: "temperature" as SensorType },
   { id: "sensor_6", type: "co2" as SensorType },
-  { id: "sensor_7", type: "movement" as SensorType },
-  { id: "sensor_8", type: "humidity" as SensorType },
-  { id: "sensor_9", type: "solar_radiation" as SensorType },
+  { id: "sensor_7", type: "humidity" as SensorType },
+  { id: "sensor_8", type: "solar_radiation" as SensorType },
 ];
 
 @Injectable()
@@ -32,51 +31,54 @@ export class HistoryService {
     const now = new Date();
     let steps = 24;
     let stepMs = 60 * 60 * 1000; // 1 hour
+    
+    // Determine number of points and step based on interval
     switch (query.interval) {
       case "1h":
         steps = 12;
-        stepMs = 5 * 60 * 1000; // 5 минут
+        stepMs = 5 * 60 * 1000; // 5 minutes
         break;
       case "24h":
         steps = 24;
-        stepMs = 60 * 60 * 1000; // 1 час
+        stepMs = 60 * 60 * 1000; // 1 hour
         break;
       case "7d":
         steps = 7 * 24;
-        stepMs = 60 * 60 * 1000; // 1 час
+        stepMs = 60 * 60 * 1000; // 1 hour
         break;
       case "30d":
         steps = 30;
-        stepMs = 24 * 60 * 60 * 1000; // 1 день
+        stepMs = 24 * 60 * 60 * 1000; // 1 day
         break;
     }
 
+    // Generate data points
     for (let i = 0; i < steps; i++) {
       const timestamp = new Date(now.getTime() - i * stepMs);
 
-      // Генерируем значения в зависимости от типа сенсора
+      // Generate values based on sensor type
       let value: number;
       switch (sensor.type) {
         case "temperature":
-          value = Math.floor(Math.random() * 10 + 18); // 18-28°C (целые числа)
+          value = Math.floor(Math.random() * 10 + 18); // 18-28°C (integers)
           break;
         case "humidity":
-          value = Math.floor(Math.random() * 40 + 30); // 30-70% (целые числа)
+          value = Math.floor(Math.random() * 40 + 30); // 30-70% (integers)
           break;
         case "air_quality":
-          value = Math.floor(Math.random() * 30 + 10); // 10-40 AQI (целые числа)
+          value = Math.floor(Math.random() * 30 + 10); // 10-40 AQI (integers)
           break;
         case "noise":
-          value = Math.floor(Math.random() * 30 + 40); // 40-70 dB (целые числа)
+          value = Math.floor(Math.random() * 30 + 40); // 40-70 dB (integers)
           break;
         case "co2":
-          value = Math.floor(Math.random() * 400 + 600); // 600-1000 ppm (целые числа)
+          value = Math.floor(Math.random() * 400 + 600); // 600-1000 ppm (integers)
           break;
         case "solar_radiation":
-          value = Math.floor(Math.random() * 600 + 200); // 200-800 W/m² (целые числа)
+          value = Math.floor(Math.random() * 600 + 200); // 200-800 W/m² (integers)
           break;
         case "movement":
-          value = Math.floor(Math.random() * 2); // 0 или 1 (целые числа)
+          value = Math.floor(Math.random() * 2); // 0 or 1 (integers)
           break;
         default:
           value = 0;
@@ -88,12 +90,12 @@ export class HistoryService {
       });
     }
 
-    // Сортируем по времени (от старых к новым)
+    // Sort by time (oldest to newest)
     items.sort(
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
     );
 
-    // Пагинация
+    // Pagination
     const page = query.page || 1;
     const limit = query.limit || 100;
     const startIndex = (page - 1) * limit;

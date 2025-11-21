@@ -1,4 +1,3 @@
-import { Link, useLocation } from "react-router";
 import { Sun, Moon, Monitor } from "lucide-react";
 import {
     Select,
@@ -13,14 +12,13 @@ import { useTheme } from "@/shared/hooks/useTheme";
 
 export const Header = () => {
     const { theme, setTheme } = useTheme();
-    const location = useLocation();
 
     return (
         <header className="w-full mb-6">
             <div className="flex justify-between items-center py-4">
                 <div className="flex flex-col gap-1">
                     <h1 className="text-3xl font-bold tracking-tight">Temperature Monitoring</h1>
-                    <p className="text-sm text-muted-foreground">Мониторинг датчиков температуры в реальном времени</p>
+                    <p className="text-sm text-muted-foreground">Monitoring sensors in real-time</p>
                 </div>
                 <div className="flex items-center gap-3">
                     <span className="text-sm font-medium text-muted-foreground">Тема:</span>

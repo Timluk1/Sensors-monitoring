@@ -21,9 +21,4 @@ export class SensorsController {
   findHistory(@Param("id") id: string, @Query() query: QueryHistoryDto) {
     return this.sensorsService.findHistory(id, query);
   }
-
-  @Get(":id/logs")
-  findLogs(@Param("id") id: string) {
-    return this.sensorsService.findLogs(id);
-  }
 }
