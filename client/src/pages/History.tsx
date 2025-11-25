@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router"
+import { useParams, useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { sensorsService } from "@/modules/Sensors/api/sensors.service";
 import { HistoryChart } from "@/modules/History/components/HistoryChart";
@@ -12,7 +12,7 @@ export const History = () => {
     const [sensor, setSensor] = useState<Sensor | null>(null);
 
     useEffect(() => {
-        if (!id) navigate('/');
+        if (!id) navigate("/");
     }, [id, navigate]);
 
     useEffect(() => {
@@ -20,10 +20,12 @@ export const History = () => {
             if (!id) return;
             try {
                 const sensorData = await sensorsService.getAll();
-                const foundSensor = sensorData.items.find((s: Sensor) => s.id === id);
+                const foundSensor = sensorData.items.find(
+                    (s: Sensor) => s.id === id,
+                );
                 if (foundSensor) setSensor(foundSensor);
             } catch (error) {
-                console.error('Failed to fetch sensor data:', error);
+                console.error("Failed to fetch sensor data:", error);
             }
         };
         getSensor();
@@ -36,5 +38,5 @@ export const History = () => {
             </Button>
             {id && <HistoryChart sensorId={id} sensor={sensor} />}
         </div>
-    )
-}
+    );
+};

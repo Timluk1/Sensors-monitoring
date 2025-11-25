@@ -1,10 +1,12 @@
-import { SensorsListItemSkeleton } from "./SensorsListItemSkeleton"
+import { SensorsListItemSkeleton } from "./SensorsListItemSkeleton";
 
 interface SensorsListSkeletonProps {
     count: number;
 }
 
-export const SensorsListSkeleton: React.FC<SensorsListSkeletonProps> = ({ count }) => {
+export const SensorsListSkeleton: React.FC<SensorsListSkeletonProps> = ({
+    count,
+}) => {
     const skeletons = Array.from({ length: count });
 
     return (
@@ -13,5 +15,5 @@ export const SensorsListSkeleton: React.FC<SensorsListSkeletonProps> = ({ count 
                 <SensorsListItemSkeleton key={index} />
             ))}
         </div>
-    )
-}
+    );
+};

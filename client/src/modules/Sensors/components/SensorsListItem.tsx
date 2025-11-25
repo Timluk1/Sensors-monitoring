@@ -1,7 +1,21 @@
 import { Link } from "react-router";
-import { Thermometer, Droplets, Wind, Volume2, Activity, CloudRain, Sun } from "lucide-react";
+import {
+    Thermometer,
+    Droplets,
+    Wind,
+    Volume2,
+    Activity,
+    CloudRain,
+    Sun,
+} from "lucide-react";
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/shared/components/card";
+import {
+    Card,
+    CardContent,
+    CardDescription,
+    CardHeader,
+    CardTitle,
+} from "@/shared/components/card";
 import { Badge } from "@/shared/components/badge";
 import { type Sensor } from "../types/sensors.types";
 
@@ -25,7 +39,7 @@ const sensorLabels = {
     solar_radiation: "Solar Radiation",
 };
 
-const getUnitByType = (type: Sensor['type']): string => {
+const getUnitByType = (type: Sensor["type"]): string => {
     const units = {
         temperature: "°C",
         humidity: "%",
@@ -38,7 +52,15 @@ const getUnitByType = (type: Sensor['type']): string => {
     return units[type] || "";
 };
 
-export const SensorsListItem: React.FC<Sensor> = ({ id, name, type, status, currentValue, location, description }) => {
+export const SensorsListItem: React.FC<Sensor> = ({
+    id,
+    name,
+    type,
+    status,
+    currentValue,
+    location,
+    description,
+}) => {
     const Icon = sensorIcons[type];
     const unit = getUnitByType(type);
     const isOnline = status === "online";
@@ -50,12 +72,20 @@ export const SensorsListItem: React.FC<Sensor> = ({ id, name, type, status, curr
                 <CardHeader>
                     <div className="flex items-start justify-between">
                         <div className="flex items-center gap-3">
-                            <div className={`p-2 rounded-lg ${isOnline ? 'bg-primary/10' : 'bg-muted'}`}>
-                                <Icon className={`h-5 w-5 ${isOnline ? 'text-primary' : 'text-muted-foreground'}`} />
+                            <div
+                                className={`p-2 rounded-lg ${isOnline ? "bg-primary/10" : "bg-muted"}`}
+                            >
+                                <Icon
+                                    className={`h-5 w-5 ${isOnline ? "text-primary" : "text-muted-foreground"}`}
+                                />
                             </div>
                             <div className="flex flex-col gap-1">
-                                <CardTitle className="text-lg">{name}</CardTitle>
-                                <CardDescription className="text-xs">{sensorLabel}</CardDescription>
+                                <CardTitle className="text-lg">
+                                    {name}
+                                </CardTitle>
+                                <CardDescription className="text-xs">
+                                    {sensorLabel}
+                                </CardDescription>
                             </div>
                         </div>
                         <Badge variant={isOnline ? "default" : "secondary"}>
@@ -67,9 +97,15 @@ export const SensorsListItem: React.FC<Sensor> = ({ id, name, type, status, curr
                     <div className="space-y-4">
                         <div className="flex items-baseline gap-2">
                             <span className="text-4xl font-bold tabular-nums">
-                                {currentValue !== undefined ? currentValue : "—"}
+                                {currentValue !== undefined
+                                    ? currentValue
+                                    : "—"}
                             </span>
-                            {unit && <span className="text-2xl font-medium text-muted-foreground">{unit}</span>}
+                            {unit && (
+                                <span className="text-2xl font-medium text-muted-foreground">
+                                    {unit}
+                                </span>
+                            )}
                         </div>
 
                         <div className="flex flex-col gap-2 text-sm">
@@ -87,5 +123,5 @@ export const SensorsListItem: React.FC<Sensor> = ({ id, name, type, status, curr
                 </CardContent>
             </Card>
         </Link>
-    )
-}
+    );
+};

@@ -1,12 +1,15 @@
-import { Alert, AlertTitle, AlertDescription } from "@/shared/components/alert"
-import { AlertCircleIcon } from "lucide-react"
+import { Alert, AlertTitle, AlertDescription } from "@/shared/components/alert";
+import { AlertCircleIcon } from "lucide-react";
 
 interface FetchErrorAlertProps {
     title: string;
     description: string;
 }
 
-export const FetchErrorAlert = ({ title, description }: FetchErrorAlertProps) => {
+export const FetchErrorAlert = ({
+    title,
+    description,
+}: FetchErrorAlertProps) => {
     return (
         <Alert variant="destructive">
             <AlertCircleIcon />
@@ -15,5 +18,5 @@ export const FetchErrorAlert = ({ title, description }: FetchErrorAlertProps) =>
                 <p>{description}</p>
             </AlertDescription>
         </Alert>
-    )
-}
+    );
+};

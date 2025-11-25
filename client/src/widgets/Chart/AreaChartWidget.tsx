@@ -1,5 +1,10 @@
 import type { HistoryRecord } from "@/modules/History/types/history.types";
-import { ChartContainer, ChartTooltip, ChartTooltipContent, type ChartConfig } from "@/shared/components/chart";
+import {
+    ChartContainer,
+    ChartTooltip,
+    ChartTooltipContent,
+    type ChartConfig,
+} from "@/shared/components/chart";
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts";
 
 interface AreaChartWidgetProps<T extends HistoryRecord> {
@@ -36,7 +41,11 @@ export function AreaChartWidget<T extends HistoryRecord>({
                 <defs>
                     <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
                         <stop offset="5%" stopColor={color} stopOpacity={0.8} />
-                        <stop offset="95%" stopColor={color} stopOpacity={0.1} />
+                        <stop
+                            offset="95%"
+                            stopColor={color}
+                            stopOpacity={0.1}
+                        />
                     </linearGradient>
                 </defs>
                 <CartesianGrid vertical={false} />

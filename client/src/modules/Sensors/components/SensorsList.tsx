@@ -37,14 +37,19 @@ export const SensorsList = () => {
 
     return (
         <div>
-            {error && <FetchErrorAlert title="Unable to fetch sensors." description="Please try again later." />}
+            {error && (
+                <FetchErrorAlert
+                    title="Unable to fetch sensors."
+                    description="Please try again later."
+                />
+            )}
 
             {loading && <SensorsListSkeleton count={limit} />}
 
             {!loading && !error && (
                 <>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-                        {sensors.map(sensor => (
+                        {sensors.map((sensor) => (
                             <SensorsListItem key={sensor.id} {...sensor} />
                         ))}
                     </div>
@@ -56,5 +61,5 @@ export const SensorsList = () => {
                 </>
             )}
         </div>
-    )
-}
+    );
+};

@@ -1,8 +1,8 @@
 import type { Sensor } from "@/modules/Sensors/types/sensors.types";
 import type { HistoryInterval } from "@/modules/History/types/history.types";
 
-export const getSensorTypeName = (type: Sensor['type']): string => {
-    const names: Record<Sensor['type'], string> = {
+export const getSensorTypeName = (type: Sensor["type"]): string => {
+    const names: Record<Sensor["type"], string> = {
         temperature: "Temperature",
         humidity: "Humidity",
         air_quality: "Air Quality",
@@ -27,9 +27,12 @@ export const getTextByInterval = (interval: HistoryInterval): string => {
     }
 };
 
-export const formatDateByInterval = (value: string, interval: HistoryInterval): string => {
+export const formatDateByInterval = (
+    value: string,
+    interval: HistoryInterval,
+): string => {
     const date = new Date(value);
-    
+
     if (interval === "1h" || interval === "24h") {
         return date.toLocaleTimeString("en-US", {
             hour: "numeric",
@@ -41,6 +44,6 @@ export const formatDateByInterval = (value: string, interval: HistoryInterval): 
             day: "numeric",
         });
     }
-    
+
     return value;
 };

@@ -17,11 +17,17 @@ export const Header = () => {
         <header className="w-full mb-6">
             <div className="flex justify-between items-center py-4">
                 <div className="flex flex-col gap-1">
-                    <h1 className="text-3xl font-bold tracking-tight">Temperature Monitoring</h1>
-                    <p className="text-sm text-muted-foreground">Monitoring sensors in real-time</p>
+                    <h1 className="text-3xl font-bold tracking-tight">
+                        Temperature Monitoring
+                    </h1>
+                    <p className="text-sm text-muted-foreground">
+                        Monitoring sensors in real-time
+                    </p>
                 </div>
                 <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium text-muted-foreground">Тема:</span>
+                    <span className="text-sm font-medium text-muted-foreground">
+                        Тема:
+                    </span>
                     <Select value={theme} onValueChange={setTheme}>
                         <SelectTrigger className="w-[140px]">
                             <SelectValue placeholder="Выберите тему" />
@@ -53,5 +59,5 @@ export const Header = () => {
             </div>
             <Separator />
         </header>
-    )
-}
+    );
+};

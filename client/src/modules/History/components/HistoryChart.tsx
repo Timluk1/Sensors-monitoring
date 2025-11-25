@@ -1,12 +1,26 @@
 import { useEffect, useState } from "react";
-import { Card, CardHeader, CardDescription, CardTitle, CardAction, CardContent } from "@/shared/components/card";
+import {
+    Card,
+    CardHeader,
+    CardDescription,
+    CardTitle,
+    CardAction,
+    CardContent,
+} from "@/shared/components/card";
 import { AreaChartWidget } from "@/widgets/Chart/AreaChartWidget";
 import { IntervalToggle } from "./IntervalToggle";
 import { IntervalSelect } from "./IntervalSelect";
 import { historyService } from "../api/histroy.service";
-import { type HistoryInterval, type HistoryRecord } from "../types/history.types";
+import {
+    type HistoryInterval,
+    type HistoryRecord,
+} from "../types/history.types";
 import type { Sensor } from "@/modules/Sensors/types/sensors.types";
-import { getSensorTypeName, getTextByInterval, formatDateByInterval } from "../utils/formatters";
+import {
+    getSensorTypeName,
+    getTextByInterval,
+    formatDateByInterval,
+} from "../utils/formatters";
 import { Spinner } from "@/shared/components/spinner";
 import { FetchErrorAlert } from "@/widgets/FetchErrorAlert/FetchErrorAlert";
 
@@ -40,7 +54,7 @@ export const HistoryChart: React.FC<HistoryChartProps> = ({
                 setError(false);
                 const response = await historyService.getAll({
                     sensorId,
-                    interval
+                    interval,
                 });
                 setData(response.items);
             } catch {
@@ -48,8 +62,8 @@ export const HistoryChart: React.FC<HistoryChartProps> = ({
             } finally {
                 setLoading(false);
             }
-        }
-        
+        };
+
         getData();
     }, [sensorId, interval]);
 
@@ -57,13 +71,17 @@ export const HistoryChart: React.FC<HistoryChartProps> = ({
         <Card className="@container/card">
             <CardHeader>
                 <CardTitle>
-                    {sensor ? `${sensor.name} - ${getSensorTypeName(sensor.type)} Statistics` : "Loading..."}
+                    {sensor
+                        ? `${sensor.name} - ${getSensorTypeName(sensor.type)} Statistics`
+                        : "Loading..."}
                 </CardTitle>
                 <CardDescription>
                     <span className="hidden @[540px]/card:block">
                         Total for {getTextByInterval(interval)}
                     </span>
-                    <span className="@[540px]/card:hidden">{getTextByInterval(interval)}</span>
+                    <span className="@[540px]/card:hidden">
+                        {getTextByInterval(interval)}
+                    </span>
                 </CardDescription>
                 <CardAction>
                     <IntervalToggle
@@ -75,7 +93,6 @@ export const HistoryChart: React.FC<HistoryChartProps> = ({
                         value={interval}
                         options={INTERVAL_OPTIONS}
                         onValueChange={setInterval}
-                        placeholder="Last 30 days"
                     />
                 </CardAction>
             </CardHeader>
@@ -85,14 +102,23 @@ export const HistoryChart: React.FC<HistoryChartProps> = ({
                         <Spinner />
                     </div>
                 )}
-                {error && <FetchErrorAlert title="Unable to fetch history data." description="Please try again later." />}
+                {error && (
+                    <FetchErrorAlert
+                        title="Unable to fetch history data."
+                        description="Please try again later."
+                    />
+                )}
                 {!loading && !error && (
                     <AreaChartWidget
                         data={data}
                         dataKey="value"
                         xAxisKey="date"
-                        tickFormatter={(value) => formatDateByInterval(value, interval)}
-                        labelFormatter={(value) => formatDateByInterval(value, interval)}
+                        tickFormatter={(value) =>
+                            formatDateByInterval(value, interval)
+                        }
+                        labelFormatter={(value) =>
+                            formatDateByInterval(value, interval)
+                        }
                     />
                 )}
             </CardContent>

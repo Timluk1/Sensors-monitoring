@@ -1,4 +1,12 @@
-import { Pagination, PaginationContent, PaginationItem, PaginationPrevious, PaginationLink, PaginationEllipsis, PaginationNext } from "@/shared/components/pagination";
+import {
+    Pagination,
+    PaginationContent,
+    PaginationItem,
+    PaginationPrevious,
+    PaginationLink,
+    PaginationEllipsis,
+    PaginationNext,
+} from "@/shared/components/pagination";
 
 interface PaginationWidgetProps {
     currentPage: number;
@@ -11,7 +19,7 @@ export const PaginationWidget: React.FC<PaginationWidgetProps> = ({
     currentPage,
     totalPages,
     onPageChange,
-    className = "mt-6"
+    className = "mt-6",
 }) => {
     if (totalPages <= 1) return null;
 
@@ -45,37 +53,47 @@ export const PaginationWidget: React.FC<PaginationWidgetProps> = ({
                 <PaginationItem>
                     <PaginationPrevious
                         onClick={handlePrevious}
-                        className={currentPage === 1 ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        className={
+                            currentPage === 1
+                                ? "pointer-events-none opacity-50"
+                                : "cursor-pointer"
+                        }
                     />
                 </PaginationItem>
 
-                {Array.from({ length: totalPages }, (_, i) => i + 1).map((pageNum) => {
-                    if (shouldShowPage(pageNum)) {
-                        return (
-                            <PaginationItem key={pageNum}>
-                                <PaginationLink
-                                    onClick={() => onPageChange(pageNum)}
-                                    isActive={currentPage === pageNum}
-                                    className="cursor-pointer"
-                                >
-                                    {pageNum}
-                                </PaginationLink>
-                            </PaginationItem>
-                        );
-                    } else if (shouldShowEllipsis(pageNum)) {
-                        return (
-                            <PaginationItem key={pageNum}>
-                                <PaginationEllipsis />
-                            </PaginationItem>
-                        );
-                    }
-                    return null;
-                })}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map(
+                    (pageNum) => {
+                        if (shouldShowPage(pageNum)) {
+                            return (
+                                <PaginationItem key={pageNum}>
+                                    <PaginationLink
+                                        onClick={() => onPageChange(pageNum)}
+                                        isActive={currentPage === pageNum}
+                                        className="cursor-pointer"
+                                    >
+                                        {pageNum}
+                                    </PaginationLink>
+                                </PaginationItem>
+                            );
+                        } else if (shouldShowEllipsis(pageNum)) {
+                            return (
+                                <PaginationItem key={pageNum}>
+                                    <PaginationEllipsis />
+                                </PaginationItem>
+                            );
+                        }
+                        return null;
+                    },
+                )}
 
                 <PaginationItem>
                     <PaginationNext
                         onClick={handleNext}
-                        className={currentPage === totalPages ? "pointer-events-none opacity-50" : "cursor-pointer"}
+                        className={
+                            currentPage === totalPages
+                                ? "pointer-events-none opacity-50"
+                                : "cursor-pointer"
+                        }
                     />
                 </PaginationItem>
             </PaginationContent>
