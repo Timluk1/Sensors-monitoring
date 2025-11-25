@@ -1,7 +1,8 @@
 # Temperature Monitoring Application
 
 A full-stack application for monitoring temperature sensors with historical data visualization.
-
+![alt text](/github/image.png)
+![alt text](/github/image-1.png)
 ## Project Structure
 
 - `client/` - React frontend application (Vite + TypeScript)
