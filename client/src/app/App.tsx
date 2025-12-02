@@ -3,6 +3,7 @@ import { Container } from "@/shared/components/Container";
 import { Header } from "@/widgets/Header/Header";
 import { Home } from "@/pages/Home";
 import { History } from "@/pages/History";
+import { NotFound } from "@/pages/NotFound";
 
 function App() {
     return (
@@ -11,6 +12,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/history/:id" element={<History />} />
+                <Route path="/*" element={<NotFound />} />
             </Routes>
         </Container>
     );
